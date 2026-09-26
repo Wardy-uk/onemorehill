@@ -132,6 +132,7 @@ for c in ch:
     ch[c]['pts']=pack(ch[c]['pts']); ch[c]['hit']=pack(ch[c]['hit'])
 
 doc={'gen':'2026-09-26','grid':[0.006,0.010],
+     'coast':json.load(open('coast.json')),
      'pts':pack([v for k in pts for v in k]),
      'stats':{'hills':len(hills),'pillars':len(trigs),
        'c10':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)<=10),

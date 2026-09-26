@@ -28,3 +28,8 @@ dist/
 .DS_Store
 .env
 data/benn.json
+
+# Natural Earth sources — large, and re-fetchable via data/fetch-sources.sh
+data/world10.json
+data/world50.json
+data/trig_county.json

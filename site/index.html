@@ -9,25 +9,27 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;700&display=swap">
 <style>
 :root{
-  --paper:#eaeee5; --panel:#e0e6d8; --ink:#1c211a; --ink2:#5d6a58;
-  --rule:#c2cbb8; --rule2:#d4dccb;
-  --contour:#b07f4a; --accent:#a83527; --fix:#1c6b4a; --land:#cfd8c4;
+  --paper:#eef1f3; --panel:#e3e8ec; --ink:#151e26; --ink2:#5a6b78;
+  --rule:#c2ccd3; --rule2:#d6dee3;
+  --contour:#8fa4b2; --accent:#c4361d; --fix:#0e7c6b;
+  --sea:#dde5ea; --land:#f6f8f9; --coast:#9fb1bd;
   --m:'Azeret Mono',ui-monospace,Menlo,monospace;
   --s:'Archivo',system-ui,-apple-system,sans-serif;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --paper:#10150f; --panel:#18201a; --ink:#e0e7dc; --ink2:#8a9a86;
-  --rule:#2c3629; --rule2:#1f2720; --contour:#7d5a31; --accent:#e2695a;
-  --fix:#48c08c; --land:#28322a;}}
-:root[data-theme=dark]{--paper:#10150f;--panel:#18201a;--ink:#e0e7dc;--ink2:#8a9a86;
-  --rule:#2c3629;--rule2:#1f2720;--contour:#7d5a31;--accent:#e2695a;--fix:#48c08c;--land:#28322a;}
+  --paper:#0d1318; --panel:#141d24; --ink:#dde6ec; --ink2:#7e919e;
+  --rule:#26333c; --rule2:#1a242b; --contour:#31424e; --accent:#ef6a4c;
+  --fix:#35c4a8; --sea:#0a1116; --land:#1b262e; --coast:#33454f;}}
+:root[data-theme=dark]{--paper:#0d1318;--panel:#141d24;--ink:#dde6ec;--ink2:#7e919e;--rule:#26333c;
+  --rule2:#1a242b;--contour:#31424e;--accent:#ef6a4c;--fix:#35c4a8;--sea:#0a1116;
+  --land:#1b262e;--coast:#33454f;}
 *{box-sizing:border-box}
 body{margin:0;color:var(--ink);font:400 16px/1.55 var(--s);background:var(--paper);
   -webkit-text-size-adjust:100%}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' width='640' height='480' viewBox='0 0 640 480'>\
-<g fill='none' stroke='%23b07f4a' stroke-opacity='.34' stroke-width='1.1'>\
+<g fill='none' stroke='%238fa4b2' stroke-opacity='.20' stroke-width='1.1'>\
 <ellipse cx='150' cy='150' rx='118' ry='62' transform='rotate(-18 150 150)'/>\
 <ellipse cx='150' cy='150' rx='92' ry='47' transform='rotate(-18 150 150)'/>\
 <ellipse cx='150' cy='150' rx='66' ry='33' transform='rotate(-18 150 150)'/>\
@@ -64,7 +66,7 @@ h1{font:700 clamp(2.1rem,6vw,3.3rem)/1.02 var(--s);margin:0;letter-spacing:-.03e
 /* ── the working area: map + panel ────────────────── */
 .work{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:0;
   border:1px solid var(--rule);margin:40px 0 0;background:var(--panel)}
-.mapbox{position:relative;min-height:440px}
+.mapbox{position:relative;min-height:440px;background:var(--sea)}
 #map{display:block;width:100%;height:100%;position:absolute;inset:0}
 .legend{position:absolute;left:14px;bottom:12px;font:500 10px/1.7 var(--m);
   letter-spacing:.06em;color:var(--ink2);text-transform:uppercase;pointer-events:none}
@@ -151,7 +153,7 @@ a{color:var(--accent)}
   <div class="mapbox">
     <canvas id="map"></canvas>
     <div class="legend">
-      <div><i style="background:var(--land)"></i>every hill</div>
+      <div><i style="background:var(--coast)"></i>coast &amp; hills</div>
       <div><i id="lgA"></i><span id="lgAt">challenge</span></div>
       <div><i style="background:var(--fix)"></i><span id="lgHit">has a pillar</span></div>
     </div>
@@ -178,7 +180,9 @@ challenges. One walk, several ticks.</p>
 v18.6, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Pillars: Ordnance
 Survey Complete Trig Archive, <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open
 Government Licence</a>. Contains OS data &copy; Crown copyright and database right 2026.</p>
-<p>The map is drawn from the hills themselves — no basemap, no tiles. Positions are WGS84;
+<p>Coastline from <a href="https://www.naturalearthdata.com/">Natural Earth</a> (public domain),
+simplified. Everything else on the map is the hill and pillar data itself — no tiles, no
+basemap service. Positions are WGS84;
 pillar eastings converted from OSGB36. Separations are straight-line metres between the
 pillar's recorded position and the recorded summit, both of which carry survey error.
 Destroyed pillars excluded — 1,030 of the 7,111 on record.</p>
@@ -227,7 +231,7 @@ function project(w,h,sel){
     const [a2,b2,c2,d2]=extent(sel);
     // zoom only when the selection covers less than a third of the country
     if((b2-a2)<(b-a)/3 && (d2-c2)<(d-c)/3){
-      const py=Math.max(0.18,(b2-a2)*0.35), px=Math.max(0.30,(d2-c2)*0.35);
+      const py=Math.max(0.42,(b2-a2)*0.55), px=Math.max(0.70,(d2-c2)*0.55);
       a=a2-py;b=b2+py;c=c2-px;d=d2+px;
     }
   }
@@ -250,9 +254,18 @@ function css(v){return getComputedStyle(document.documentElement).getPropertyVal
 function paint(){
   const cv=el('map'),x=cv.getContext('2d'),r=cv.getBoundingClientRect();
   x.clearRect(0,0,r.width,r.height);
-  const land=css('--land'),acc=css('--accent'),fix=css('--fix');
-  x.fillStyle=land;
-  for(const[la,lo]of ALL){x.fillRect(PROJ.x(lo),PROJ.y(la),1.4,1.4);}
+  const acc=css('--accent'),fix=css('--fix');
+  // land
+  x.fillStyle=css('--land'); x.strokeStyle=css('--coast'); x.lineWidth=0.9;
+  for(const ring of D.coast){
+    x.beginPath();
+    ring.forEach(([la,lo],i)=>{const px=PROJ.x(lo),py=PROJ.y(la);
+      i?x.lineTo(px,py):x.moveTo(px,py);});
+    x.closePath(); x.fill(); x.stroke();
+  }
+  // every hill, as texture on the land
+  x.fillStyle=css('--contour');
+  for(const[la,lo]of ALL){x.fillRect(PROJ.x(lo),PROJ.y(la),1.3,1.3);}
   const z=PROJ.zoom, rp=z?4.5:1.7, rh=z?7:4.2;
   x.fillStyle=acc;
   for(const i of P){const[la,lo]=ALL[i];

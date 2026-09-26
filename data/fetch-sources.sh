@@ -9,4 +9,6 @@ echo "→ OS Complete Trig Archive (OGL)"
 mkdir -p trig
 curl -sL -o trig.zip "https://www.ordnancesurvey.co.uk/documents/gps/CompleteTrigArchive.zip"
 unzip -oq trig.zip -d trig && rm trig.zip
-ls -la *.csv trig/*.csv
+echo "→ Natural Earth coastline (public domain)"
+curl -sL -o world10.json "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-10m.json"
+ls -la *.csv trig/*.csv world10.json
