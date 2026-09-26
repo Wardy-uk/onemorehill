@@ -27,3 +27,4 @@ app/.svelte-kit/
 dist/
 .DS_Store
 .env
+data/benn.json
