@@ -3,189 +3,224 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>One More Hill — trig pillars on named hills</title>
-<meta name="description" content="1,510 Ordnance Survey trig pillars sit on a named British hill. Nobody has published the cross-reference. Here it is, free.">
+<title>Trig pillars on named hills — One More Hill</title>
+<meta name="description" content="1,510 Ordnance Survey trig pillars stand within 10 metres of a named British hill. The two databases had never been joined. This is the cross-reference.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fbfaf8; --fg:#1c1a17; --muted:#6b645c; --line:#e3ded6;
-  --card:#fff; --accent:#2f6b4f; --accent-soft:#e8f0ea; --hi:#b45309;
-  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  --paper:#f4f1ea; --ink:#1a1814; --ink-soft:#5d564c; --rule:#ccc5b6;
+  --os:#b8410e;            /* OS Explorer orange */
+  --os-pale:#efe2d6;
+  --serif:'Newsreader',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --bg:#14130f; --fg:#eceae5; --muted:#a09a90; --line:#2e2b26;
-  --card:#1c1a16; --accent:#6fae8b; --accent-soft:#1e2b24; --hi:#e0a458;
+  --paper:#16150f; --ink:#e8e3d8; --ink-soft:#948c7e; --rule:#35302a;
+  --os:#e0743d; --os-pale:#2a1e16;
 }}
-:root[data-theme=dark]{--bg:#14130f;--fg:#eceae5;--muted:#a09a90;--line:#2e2b26;--card:#1c1a16;--accent:#6fae8b;--accent-soft:#1e2b24;--hi:#e0a458;}
+:root[data-theme=dark]{--paper:#16150f;--ink:#e8e3d8;--ink-soft:#948c7e;--rule:#35302a;--os:#e0743d;--os-pale:#2a1e16;}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);
- font:16px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
- -webkit-text-size-adjust:100%}
-.wrap{max-width:960px;margin:0 auto;padding:0 16px}
-header{padding:56px 0 8px;border-bottom:1px solid var(--line)}
-h1{font-size:clamp(2rem,6vw,3rem);margin:0 0 4px;letter-spacing:-.02em}
-.tag{color:var(--accent);font-size:1.05rem;margin:0 0 20px}
-.lede{font-size:clamp(1.05rem,2.4vw,1.25rem);color:var(--fg);max-width:60ch;margin:22px 0}
-.lede strong{color:var(--hi)}
-h2{font-size:1.45rem;margin:44px 0 6px;letter-spacing:-.01em}
-h2+p.sub{color:var(--muted);margin:0 0 18px;max-width:62ch}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:26px 0}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
-.stat b{display:block;font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}
-.stat span{color:var(--muted);font-size:.85rem}
-table{width:100%;border-collapse:collapse;font-size:.92rem}
-th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-weight:600;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;
-   position:sticky;top:0;background:var(--bg)}
-td.n{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);white-space:nowrap}
-.pill{display:inline-block;background:var(--accent-soft);color:var(--accent);border-radius:999px;
-  padding:1px 8px;font-size:.76rem;margin:1px 3px 1px 0;white-space:nowrap}
-.count{display:inline-block;min-width:26px;text-align:center;background:var(--accent);color:var(--bg);
-  border-radius:6px;padding:2px 6px;font-weight:700;font-variant-numeric:tabular-nums}
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
-input[type=search],select{font:inherit;padding:9px 12px;border:1px solid var(--line);
-  border-radius:8px;background:var(--card);color:var(--fg);min-width:0}
-input[type=search]{flex:1 1 220px}
-.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
-.bar{height:7px;background:var(--accent-soft);border-radius:4px;overflow:hidden;min-width:70px}
-.bar i{display:block;height:100%;background:var(--accent)}
-@media(max-width:640px){
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--serif);
+  font-variant-numeric:oldstyle-nums}
+.w{max-width:1000px;margin:0 auto;padding:0 20px}
+
+/* masthead */
+.mast{border-bottom:2px solid var(--ink);padding:36px 0 10px;margin-bottom:2px}
+.mast .kicker{font:500 11px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--os);margin:0 0 14px}
+h1{font:600 clamp(2.1rem,6.5vw,3.4rem)/1.02 var(--serif);margin:0;letter-spacing:-.015em}
+.mast .sub{font:italic 400 1.15rem/1.4 var(--serif);color:var(--ink-soft);margin:8px 0 0}
+.rule2{border-bottom:1px solid var(--ink);margin-bottom:30px;height:3px}
+
+/* lede */
+.lede{font-size:1.28rem;line-height:1.5;max-width:34em;margin:30px 0}
+.lede .n{font:600 1em/1 var(--mono);font-variant-numeric:tabular-nums;color:var(--os)}
+.byline{font:400 12px/1.5 var(--mono);color:var(--ink-soft);letter-spacing:.02em;
+  border-top:1px solid var(--rule);padding-top:10px;margin-top:34px}
+
+/* section heads */
+h2{font:600 1.5rem/1.2 var(--serif);margin:52px 0 2px;letter-spacing:-.01em}
+h2 .num{font:500 .62em/1 var(--mono);color:var(--os);margin-right:.7em;
+  letter-spacing:.1em;vertical-align:.22em}
+.standfirst{color:var(--ink-soft);margin:0 0 16px;max-width:40em;font-size:1.02rem}
+
+/* controls */
+.ctl{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--rule);margin:18px 0 0}
+.ctl>*{font:400 14px/1 var(--mono);padding:11px 12px;border:0;background:transparent;
+  color:var(--ink);border-right:1px solid var(--rule);min-width:0}
+.ctl>*:last-child{border-right:0}
+.ctl input{flex:1 1 180px}
+.ctl input::placeholder{color:var(--ink-soft)}
+.ctl select{cursor:pointer}
+.ctl :focus{outline:2px solid var(--os);outline-offset:-2px}
+
+/* data table */
+table{width:100%;border-collapse:collapse;margin-top:-1px}
+caption{caption-side:bottom;text-align:left;font:400 12px/1.5 var(--mono);
+  color:var(--ink-soft);padding-top:10px}
+th{font:500 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);text-align:left;padding:10px 10px;border-bottom:1px solid var(--ink);
+  position:sticky;top:0;background:var(--paper)}
+td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:baseline}
+tr:hover td{background:var(--os-pale)}
+.hill{font-weight:600}
+.meta{font:400 11.5px/1.3 var(--mono);color:var(--ink-soft);display:block;margin-top:2px}
+.num,td.num{font:400 14px/1.4 var(--mono);font-variant-numeric:tabular-nums;text-align:right;
+  white-space:nowrap}
+.tally{font:600 15px/1 var(--mono);color:var(--os)}
+.lists{font:400 12.5px/1.5 var(--mono);color:var(--ink-soft)}
+.lists b{color:var(--ink);font-weight:500}
+
+/* coverage bars */
+.cov{width:100%;border-collapse:collapse}
+.cov td{padding:7px 10px}
+.cov td:first-child{width:34%}
+.cov td:last-child{width:34%}
+.track{display:block;height:3px;background:var(--rule);position:relative}
+.track i{position:absolute;inset:0 auto 0 0;background:var(--os)}
+
+/* pull quote / aside */
+.aside{border-left:2px solid var(--os);padding:2px 0 2px 20px;margin:34px 0;
+  max-width:38em;font-size:1.05rem}
+.aside b{font-weight:600}
+
+button.more{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  padding:12px 20px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  cursor:pointer;margin:20px 0 0;width:100%}
+button.more:hover{background:var(--ink);color:var(--paper)}
+
+footer{border-top:2px solid var(--ink);margin:64px 0 0;padding:18px 0 56px;
+  font:400 13px/1.65 var(--mono);color:var(--ink-soft)}
+footer p{margin:0 0 12px;max-width:52em}
+a{color:var(--os);text-decoration:underline;text-underline-offset:2px}
+
+@media(max-width:680px){
+  body{font-size:16px}
   thead{display:none}
   table,tbody,tr,td{display:block;width:100%}
-  tr{padding:12px 4px;border-bottom:1px solid var(--line)}
-  td{border:0;padding:2px 8px}
-  td.n{text-align:left}
-  td[data-l]:before{content:attr(data-l);display:block;color:var(--muted);
-    font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
-  .scroll{overflow-x:visible}
-  .count{margin-bottom:2px}
+  tr{padding:13px 0;border-bottom:1px solid var(--rule)}
+  tr:hover td{background:transparent}
+  td{border:0;padding:1px 0}
+  td.num{text-align:left}
+  .cov tr{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:baseline}
+  .cov td:nth-child(3){grid-column:1/-1}
 }
-footer{margin:60px 0 40px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.87rem}
-a{color:var(--accent)}
-.note{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--hi);
-  border-radius:8px;padding:14px 16px;margin:20px 0}
-.more{margin:14px 0 0;text-align:center}
-button.more-btn{font:inherit;padding:9px 18px;border:1px solid var(--line);border-radius:8px;
-  background:var(--card);color:var(--fg);cursor:pointer}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="w">
 
-<header>
-  <h1>One More Hill</h1>
-  <p class="tag">While you're there, bag them all</p>
+<header class="mast">
+  <p class="kicker">Ordnance Survey × Database of British &amp; Irish Hills</p>
+  <h1>Trig pillars on named hills</h1>
+  <p class="sub">The first cross-reference of the two datasets</p>
 </header>
+<div class="rule2"></div>
 
-<p class="lede">There are <strong>6,081</strong> standing Ordnance Survey trig pillars in Britain.
-<strong>1,510</strong> of them sit within 10 metres of a named hill — a Munro, a Wainwright, an
-Ethel, a Marilyn. Climb one and you've bagged both.</p>
+<p class="lede">Britain has <span class="n" id="nPil">—</span> standing trig pillars.
+<span class="n" id="nCo">—</span> of them stand within ten metres of a named hill — a Munro,
+a Wainwright, an Ethel, a Marilyn. Climb one and you have bagged both.</p>
 
-<p class="lede">Nobody had published that cross-reference, because the two databases have never
-been joined: the hill database holds no trig points, and the trig database holds no hill lists.
-<strong>So we joined them.</strong> Here it is, free.</p>
+<p class="lede">Nobody had published which. The hill database holds no trig points; the trig
+archive holds no hill lists. The overlap has been invisible for as long as both have existed.
+So I joined them.</p>
 
-<div class="stats" id="stats"></div>
+<p class="byline">Compiled from DoBIH v18.6 and the OS Complete Trig Archive ·
+<span id="gen">—</span> · free to use, corrections welcome</p>
 
-<h2>The jackpot summits</h2>
-<p class="sub">One visit, many ticks. These hills carry a trig pillar <em>and</em> belong to the
-most challenge lists — so a single walk moves you forward on all of them at once.</p>
+<h2><span class="num">I</span>Summits that count for most</h2>
+<p class="standfirst">Hills carrying a pillar, ranked by how many challenge lists they belong
+to. A single visit moves every one of them forward.</p>
 
-<div class="controls">
-  <input type="search" id="q" placeholder="Search a hill or pillar…" autocomplete="off">
-  <select id="dist">
-    <option value="10">On the summit (≤10m)</option>
-    <option value="50" selected>Within 50m</option>
-    <option value="250">Within 250m</option>
+<div class="ctl">
+  <input type="search" id="q" placeholder="Search hill or pillar" autocomplete="off" aria-label="Search">
+  <select id="dist" aria-label="Distance">
+    <option value="10">On the summit — within 10 m</option>
+    <option value="50" selected>Within 50 m</option>
+    <option value="250">Within 250 m</option>
   </select>
-  <select id="list"><option value="">All challenges</option></select>
+  <select id="list" aria-label="Challenge"><option value="">Every challenge</option></select>
 </div>
 
-<div class="scroll">
 <table>
-  <thead><tr><th>Hill</th><th class="n">Lists</th><th>Which</th><th class="n">Pillar</th></tr></thead>
+  <thead><tr>
+    <th style="width:30%">Hill</th><th class="num" style="width:8%">Lists</th>
+    <th>Counts toward</th><th class="num" style="width:16%">Pillar</th>
+  </tr></thead>
   <tbody id="rows"></tbody>
+  <caption id="cap"></caption>
 </table>
-</div>
-<p class="more"><button class="more-btn" id="more">Show more</button></p>
+<button class="more" id="more">Show more</button>
 
-<h2>How much of each challenge has a pillar?</h2>
-<p class="sub">Pillar within 50m of the summit. The Ethels are the best-served list in Britain;
-the Wainwrights are among the worst.</p>
-<div class="scroll">
-<table>
-  <thead><tr><th>Challenge</th><th class="n">With pillar</th><th class="n">Total</th><th>Share</th></tr></thead>
-  <tbody id="cov"></tbody>
-</table>
-</div>
+<h2><span class="num">II</span>How well served is each challenge?</h2>
+<p class="standfirst">Proportion of each list with a pillar within fifty metres of the summit.
+The Ethels are the best-served challenge in Britain. The Wainwrights are among the worst.</p>
+<table class="cov">
+  <colgroup><col style="width:34%"><col><col style="width:30%"></colgroup>
+  <tbody id="cov"></tbody></table>
 
-<div class="note">
-<strong>A thing we noticed.</strong> The Full House — every Munro, Munro Top, Corbett,
-Fiona, Donald and Furth — is officially <b>1,072</b> summits. But only <b>1,042</b> of them are
-distinct hills: <b>30</b> sit in two lists at once. Ben Cleuch is a Fiona <em>and</em> a Donald.
-Merrick is a Corbett <em>and</em> a Donald. Thirty of those walks tick two boxes, and nothing
-tells you which.
-</div>
+<p class="aside">The Full House — every Munro, Munro Top, Corbett, Fiona, Donald and Furth —
+is officially <b>1,072</b> summits. Only <b>1,042</b> are distinct hills. <b>Thirty</b> sit in
+two lists at once: Ben Cleuch is a Fiona and a Donald, Merrick a Corbett and a Donald. Thirty
+of those walks count twice, and nothing tells you which.</p>
 
 <footer>
-<p><strong>Sources.</strong> Hill data from the
-<a href="https://www.hill-bagging.co.uk/dobih">Database of British and Irish Hills</a> v18.6,
-licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
-Trig pillar locations from the Ordnance Survey Complete Trig Archive, released under the
-<a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence</a>.
-Contains OS data © Crown copyright and database right 2026.</p>
-<p>Distances are straight-line between the pillar and the recorded summit, in OSGB grid metres.
-A pillar is often <em>not</em> on the true summit — Helvellyn's sits 89m away — so we list them
-as separate places, not the same one.</p>
-<p id="gen"></p>
+<p>Hill data: <a href="https://www.hill-bagging.co.uk/dobih">Database of British and Irish
+Hills</a> v18.6, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+Pillar positions: Ordnance Survey Complete Trig Archive, released under the
+<a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open
+Government Licence</a>. Contains OS data © Crown copyright and database right 2026.</p>
+<p>Distances are straight lines in OSGB grid metres between the pillar's recorded position and
+the recorded summit. Both carry their own survey error, so treat anything under two metres as
+“the same place” rather than a measurement. Destroyed pillars are excluded — 1,030 of the
+7,111 in the archive.</p>
+<p>A pillar is frequently not on the summit. Helvellyn's stands 89 metres away. They are listed
+here as separate places, because they are.</p>
 </footer>
 
 </div>
 <script>
-const LIMIT=40; let shown=LIMIT, D=null, filtered=[];
+const STEP=50; let shown=STEP, D=null, F=[];
 const el=id=>document.getElementById(id);
+const nf=n=>n.toLocaleString('en-GB');
 fetch('data.json').then(r=>r.json()).then(d=>{D=d;init()});
 
 function init(){
-  const s=D.stats;
-  el('stats').innerHTML=[
-    [s.pillars.toLocaleString(),'standing trig pillars'],
-    [s.coincident10.toLocaleString(),'on a named summit (≤10m)'],
-    [s.within50.toLocaleString(),'within 50 metres'],
-    [s.hills.toLocaleString(),'hills in the database'],
-  ].map(([b,t])=>`<div class="stat"><b>${b}</b><span>${t}</span></div>`).join('');
-
-  const names=D.listnames, used=new Set();
+  el('nPil').textContent=nf(D.stats.pillars);
+  el('nCo').textContent=nf(D.stats.coincident10);
+  el('gen').textContent='compiled '+new Date(D.generated).toLocaleDateString('en-GB',
+    {day:'numeric',month:'long',year:'numeric'});
+  const N=D.listnames, used=new Set();
   D.pairs.forEach(p=>p.l.forEach(c=>used.add(c)));
-  el('list').innerHTML='<option value="">All challenges</option>'+
-    [...used].sort((a,b)=>names[a].localeCompare(names[b]))
-      .map(c=>`<option value="${c}">${names[c]}</option>`).join('');
-
-  el('cov').innerHTML=Object.entries(D.coverage)
-    .sort((a,b)=>b[1].pct-a[1].pct)
-    .map(([n,c])=>`<tr><td>${n}</td><td class="n">${c.with}</td><td class="n">${c.total.toLocaleString()}</td>
-      <td><div class="bar"><i style="width:${Math.min(100,c.pct*2.2)}%"></i></div>
-      <span style="color:var(--muted);font-size:.82rem">${c.pct}%</span></td></tr>`).join('');
-
-  el('gen').textContent='Generated '+D.generated+' from DoBIH '+D.dobih+'.';
-  ['q','dist','list'].forEach(id=>el(id).addEventListener('input',()=>{shown=LIMIT;render()}));
-  el('more').addEventListener('click',()=>{shown+=LIMIT;render()});
+  el('list').innerHTML='<option value="">Every challenge</option>'+
+    [...used].sort((a,b)=>N[a].localeCompare(N[b])).map(c=>`<option value="${c}">${N[c]}</option>`).join('');
+  el('cov').innerHTML=Object.entries(D.coverage).sort((a,b)=>b[1].pct-a[1].pct)
+    .map(([n,c])=>`<tr><td>${n}</td>
+      <td class="num">${c.with} <span style="color:var(--ink-soft)">of ${nf(c.total)}</span>
+        &nbsp;<b class="tally">${c.pct}%</b></td>
+      <td><span class="track"><i style="width:${Math.min(100,c.pct*2.4)}%"></i></span></td></tr>`).join('');
+  ['q','dist','list'].forEach(i=>el(i).addEventListener('input',()=>{shown=STEP;render()}));
+  el('more').addEventListener('click',()=>{shown+=STEP;render()});
   render();
 }
-
 function render(){
-  const q=el('q').value.trim().toLowerCase(), md=+el('dist').value, lf=el('list').value;
-  filtered=D.pairs.filter(p=>p.d<=md
-    && (!lf||p.l.includes(lf))
-    && (!q||p.h.toLowerCase().includes(q)||p.t.toLowerCase().includes(q)));
-  const names=D.listnames;
-  el('rows').innerHTML=filtered.slice(0,shown).map(p=>`<tr>
-    <td><strong>${esc(p.h)}</strong> <span style="color:var(--muted);font-size:.83rem">${p.m??'?'}m · ${esc(p.r||'')}</span></td>
-    <td class="n" data-l="Counts toward"><span class="count">${p.n}</span> <span style="color:var(--muted);font-size:.83rem">challenge lists</span></td>
-    <td>${p.l.map(c=>`<span class="pill">${names[c]}</span>`).join('')}</td>
-    <td class="n" data-l="Pillar">${p.d}m away — <span style="color:var(--muted)">${esc(p.t)}</span></td>
-  </tr>`).join('') || `<tr><td colspan="4" style="color:var(--muted);padding:22px">No matches.</td></tr>`;
-  el('more').style.display = filtered.length>shown ? '' : 'none';
-  el('more').textContent=`Show more (${(filtered.length-shown).toLocaleString()} left)`;
+  const q=el('q').value.trim().toLowerCase(), md=+el('dist').value, lf=el('list').value, N=D.listnames;
+  F=D.pairs.filter(p=>p.d<=md&&(!lf||p.l.includes(lf))
+    &&(!q||p.h.toLowerCase().includes(q)||p.t.toLowerCase().includes(q)));
+  el('rows').innerHTML=F.slice(0,shown).map(p=>`<tr>
+    <td><span class="hill">${esc(p.h)}</span><span class="meta">${p.m??'?'} m · ${esc(p.r||'')}</span></td>
+    <td class="num"><span class="tally">${p.n}</span></td>
+    <td class="lists">${p.l.map(c=>`<b>${N[c]}</b>`).join(' · ')}</td>
+    <td class="num">${p.d} m<span class="meta">${esc(p.t)}</span></td></tr>`).join('')
+    || `<tr><td colspan="4" style="padding:24px 0;color:var(--ink-soft)">Nothing matches.</td></tr>`;
+  el('cap').textContent=`${nf(F.length)} pillar–hill pairs within ${md} m`+
+    (lf?` on the ${N[lf]}s`:'')+(q?` matching “${q}”`:'')+'.';
+  const left=F.length-shown;
+  el('more').style.display=left>0?'':'none';
+  el('more').textContent=`Show ${nf(Math.min(STEP,left))} more`;
 }
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 </script>
