@@ -1,0 +1,29 @@
+# Source data — regenerable via data/fetch-sources.sh (16MB, licensed but no need to vendor)
+data/DoBIH_v18_6.csv
+data/hillcsv.zip
+data/trig/
+data/trig.zip
+data/*.html
+data/notes.html
+data/alllists.html
+data/raw.jsonl
+data/store/
+data/store2/
+data/rounds/
+data/w_*.json
+data/tors_osm.json
+data/tors3.json
+
+# Large intermediates — regenerable via the pipeline
+data/locations_hills.json
+data/locations_trigs.json
+data/dataset_slim.json
+data/join_250m.json
+
+# Node / build
+node_modules/
+app/build/
+app/.svelte-kit/
+dist/
+.DS_Store
+.env

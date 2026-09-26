@@ -1,0 +1,322 @@
+{
+ "challenges": [
+  {
+   "code": "M",
+   "name": "Munro",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 282
+  },
+  {
+   "code": "MT",
+   "name": "Munro Top",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 226
+  },
+  {
+   "code": "F",
+   "name": "Furth",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 34
+  },
+  {
+   "code": "Mur",
+   "name": "Murdo",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 441
+  },
+  {
+   "code": "C",
+   "name": "Corbett",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 222
+  },
+  {
+   "code": "CT",
+   "name": "Corbett Top",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 453
+  },
+  {
+   "code": "G",
+   "name": "Graham",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 231
+  },
+  {
+   "code": "GT",
+   "name": "Graham Top",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 844
+  },
+  {
+   "code": "D",
+   "name": "Donald",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 89
+  },
+  {
+   "code": "DT",
+   "name": "Donald Top",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 52
+  },
+  {
+   "code": "DDew",
+   "name": "Donald Dewey",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 247
+  },
+  {
+   "code": "Hew",
+   "name": "Hewitt",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 523
+  },
+  {
+   "code": "N",
+   "name": "Nuttall",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 442
+  },
+  {
+   "code": "Dew",
+   "name": "Dewey",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 425
+  },
+  {
+   "code": "HF",
+   "name": "Highland Five",
+   "tier": "classic",
+   "source": "DoBIH v18.6",
+   "count": 713
+  },
+  {
+   "code": "W",
+   "name": "Wainwright",
+   "tier": "regional",
+   "source": "DoBIH v18.6",
+   "count": 214
+  },
+  {
+   "code": "WO",
+   "name": "Wainwright Outlying Fell",
+   "tier": "regional",
+   "source": "DoBIH v18.6",
+   "count": 116
+  },
+  {
+   "code": "B",
+   "name": "Birkett",
+   "tier": "regional",
+   "source": "DoBIH v18.6",
+   "count": 541
+  },
+  {
+   "code": "Sy",
+   "name": "Synge",
+   "tier": "regional",
+   "source": "DoBIH v18.6",
+   "count": 670
+  },
+  {
+   "code": "Fel",
+   "name": "Fellranger",
+   "tier": "regional",
+   "source": "DoBIH v18.6",
+   "count": 230
+  },
+  {
+   "code": "E",
+   "name": "Ethel",
+   "tier": "regional",
+   "source": "DoBIH v18.6",
+   "count": 95
+  },
+  {
+   "code": "Tu",
+   "name": "TuMP",
+   "tier": "relative",
+   "source": "DoBIH v18.6",
+   "count": 17039
+  },
+  {
+   "code": "Hu",
+   "name": "HuMP",
+   "tier": "relative",
+   "source": "DoBIH v18.6",
+   "count": 3815
+  },
+  {
+   "code": "Sim",
+   "name": "Simm",
+   "tier": "relative",
+   "source": "DoBIH v18.6",
+   "count": 2755
+  },
+  {
+   "code": "Ma",
+   "name": "Marilyn",
+   "tier": "relative",
+   "source": "DoBIH v18.6",
+   "count": 2007
+  },
+  {
+   "code": "HHB",
+   "name": "High Hill of Britain",
+   "tier": "relative",
+   "source": "DoBIH v18.6",
+   "count": 1035
+  },
+  {
+   "code": "Y",
+   "name": "Yeaman",
+   "tier": "relative",
+   "source": "DoBIH v18.6",
+   "count": 2512
+  },
+  {
+   "code": "CoU",
+   "name": "County / UA Top",
+   "tier": "county",
+   "source": "DoBIH v18.6",
+   "count": 212
+  },
+  {
+   "code": "CoH",
+   "name": "Historic County Top",
+   "tier": "county",
+   "source": "DoBIH v18.6",
+   "count": 112
+  },
+  {
+   "code": "CoA",
+   "name": "Administrative County Top",
+   "tier": "county",
+   "source": "DoBIH v18.6",
+   "count": 109
+  },
+  {
+   "code": "CoL",
+   "name": "London Borough Top",
+   "tier": "county",
+   "source": "DoBIH v18.6",
+   "count": 32
+  },
+  {
+   "code": "SIB",
+   "name": "Significant Island of Britain",
+   "tier": "island",
+   "source": "DoBIH v18.6",
+   "count": 856
+  },
+  {
+   "code": "T100",
+   "name": "Trail 100",
+   "tier": "other",
+   "source": "DoBIH v18.6",
+   "count": 100
+  },
+  {
+   "code": "A",
+   "name": "Arderin",
+   "tier": "ireland",
+   "source": "DoBIH v18.6",
+   "count": 409
+  },
+  {
+   "code": "VL",
+   "name": "Vandeleur-Lynam",
+   "tier": "ireland",
+   "source": "DoBIH v18.6",
+   "count": 275
+  },
+  {
+   "code": "Ca",
+   "name": "Carn",
+   "tier": "ireland",
+   "source": "DoBIH v18.6",
+   "count": 338
+  },
+  {
+   "code": "Bin",
+   "name": "Binnion",
+   "tier": "ireland",
+   "source": "DoBIH v18.6",
+   "count": 484
+  },
+  {
+   "code": "Dil",
+   "name": "Dillon",
+   "tier": "ireland",
+   "source": "DoBIH v18.6",
+   "count": 212
+  },
+  {
+   "code": "FIONA",
+   "name": "Fiona",
+   "tier": "derived",
+   "source": "derived from DoBIH",
+   "count": 219
+  },
+  {
+   "code": "WELSH3000",
+   "name": "Welsh 3000s",
+   "tier": "derived",
+   "source": "derived from DoBIH",
+   "count": 15
+  },
+  {
+   "code": "FURTH_IE",
+   "name": "Irish Furths",
+   "tier": "derived",
+   "source": "derived from DoBIH",
+   "count": 13
+  },
+  {
+   "code": "FURTH_EN",
+   "name": "English Furths",
+   "tier": "derived",
+   "source": "derived from DoBIH",
+   "count": 6
+  },
+  {
+   "code": "NAT3PEAKS",
+   "name": "National Three Peaks",
+   "tier": "derived",
+   "source": "derived from DoBIH",
+   "count": 3
+  },
+  {
+   "code": "YORKS3PEAKS",
+   "name": "Yorkshire Three Peaks",
+   "tier": "derived",
+   "source": "derived from DoBIH",
+   "count": 3
+  },
+  {
+   "code": "TRIG",
+   "name": "Trig Pillars",
+   "tier": "trig",
+   "source": "OS Complete Trig Archive (OGL)",
+   "count": 6081
+  }
+ ],
+ "generated": "2026-09-22",
+ "dobih_version": "18.6",
+ "licence": "DoBIH CC BY 4.0; OS trig OGL"
+}
