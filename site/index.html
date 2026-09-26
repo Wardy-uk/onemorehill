@@ -4,299 +4,267 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pillars on Summits</title>
-<meta name="description" content="Which hills on your challenge have a trig pillar on top? The first cross-reference of the Ordnance Survey trig archive against every named hill in Britain and Ireland.">
+<meta name="description" content="Which hills on your challenge have a trig pillar on top? The Ordnance Survey trig archive cross-referenced against every named hill in Britain and Ireland.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;700&display=swap">
 <style>
 :root{
-  --paper:#edf0e8; --panel:#e4e9de; --ink:#1d221c; --ink2:#5e6b5b;
-  --rule:#c5cdbf; --rule2:#d6ddce;
-  --contour:#bb8149; --accent:#b0322a; --fix:#1d6b52;
-  --ridge1:#8fa189; --ridge2:#6d8070; --ridge3:#4b5e54;
-  --skyA:#dfe7e4; --skyB:#eef1ea;
+  --paper:#eaeee5; --panel:#e0e6d8; --ink:#1c211a; --ink2:#5d6a58;
+  --rule:#c2cbb8; --rule2:#d4dccb;
+  --contour:#b07f4a; --accent:#a83527; --fix:#1c6b4a; --land:#cfd8c4;
   --m:'Azeret Mono',ui-monospace,Menlo,monospace;
   --s:'Archivo',system-ui,-apple-system,sans-serif;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --paper:#12171a; --panel:#1a2125; --ink:#e2e8e3; --ink2:#8b9a93;
-  --rule:#2e383b; --rule2:#212a2d; --contour:#8a6238; --accent:#e06054; --fix:#4fbf92;
-  --ridge1:#2b3a3a; --ridge2:#1f2c2e; --ridge3:#172123;
-  --skyA:#18232a; --skyB:#12171a;
-}}
-:root[data-theme=dark]{--paper:#12171a;--panel:#1a2125;--ink:#e2e8e3;--ink2:#8b9a93;
-  --rule:#2e383b;--rule2:#212a2d;--contour:#8a6238;--accent:#e06054;--fix:#4fbf92;
-  --ridge1:#2b3a3a;--ridge2:#1f2c2e;--ridge3:#172123;--skyA:#18232a;--skyB:#12171a;}
+  --paper:#10150f; --panel:#18201a; --ink:#e0e7dc; --ink2:#8a9a86;
+  --rule:#2c3629; --rule2:#1f2720; --contour:#7d5a31; --accent:#e2695a;
+  --fix:#48c08c; --land:#28322a;}}
+:root[data-theme=dark]{--paper:#10150f;--panel:#18201a;--ink:#e0e7dc;--ink2:#8a9a86;
+  --rule:#2c3629;--rule2:#1f2720;--contour:#7d5a31;--accent:#e2695a;--fix:#48c08c;--land:#28322a;}
 *{box-sizing:border-box}
-body{margin:0;color:var(--ink);font:400 16px/1.55 var(--s);
-  background:var(--paper);-webkit-text-size-adjust:100%}
-/* contour texture — drawn, not stock */
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+body{margin:0;color:var(--ink);font:400 16px/1.55 var(--s);background:var(--paper);
+  -webkit-text-size-adjust:100%}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' width='560' height='420' viewBox='0 0 560 420'>\
-<g fill='none' stroke='%23bb8149' stroke-opacity='.17' stroke-width='1'>\
-<path d='M-40 300 C 90 250 150 330 250 288 S 430 210 610 268'/>\
-<path d='M-40 322 C 90 274 152 352 250 310 S 432 234 610 290'/>\
-<path d='M-40 346 C 92 298 154 374 250 332 S 434 258 610 314'/>\
-<path d='M-40 372 C 94 324 156 398 250 356 S 436 282 610 338'/>\
-<path d='M-40 120 C 110 72 190 150 286 106 S 448 40 610 96'/>\
-<path d='M-40 146 C 112 98 192 174 286 130 S 450 64 610 120'/>\
-<path d='M-40 174 C 114 126 194 200 286 156 S 452 90 610 146'/>\
-<ellipse cx='150' cy='232' rx='74' ry='34'/><ellipse cx='150' cy='232' rx='48' ry='21'/>\
-<ellipse cx='150' cy='232' rx='23' ry='10'/>\
-<ellipse cx='438' cy='196' rx='60' ry='28'/><ellipse cx='438' cy='196' rx='36' ry='16'/>\
+<svg xmlns='http://www.w3.org/2000/svg' width='640' height='480' viewBox='0 0 640 480'>\
+<g fill='none' stroke='%23b07f4a' stroke-opacity='.34' stroke-width='1.1'>\
+<ellipse cx='150' cy='150' rx='118' ry='62' transform='rotate(-18 150 150)'/>\
+<ellipse cx='150' cy='150' rx='92' ry='47' transform='rotate(-18 150 150)'/>\
+<ellipse cx='150' cy='150' rx='66' ry='33' transform='rotate(-18 150 150)'/>\
+<ellipse cx='150' cy='150' rx='40' ry='19' transform='rotate(-18 150 150)'/>\
+<ellipse cx='150' cy='150' rx='17' ry='8' transform='rotate(-18 150 150)'/>\
+<ellipse cx='486' cy='352' rx='130' ry='70' transform='rotate(12 486 352)'/>\
+<ellipse cx='486' cy='352' rx='101' ry='53' transform='rotate(12 486 352)'/>\
+<ellipse cx='486' cy='352' rx='72' ry='37' transform='rotate(12 486 352)'/>\
+<ellipse cx='486' cy='352' rx='44' ry='22' transform='rotate(12 486 352)'/>\
+<path d='M-30 300 C 110 262 190 336 300 300 S 520 244 680 292'/>\
+<path d='M-30 330 C 112 292 192 366 300 330 S 522 274 680 322'/>\
+<path d='M-30 62 C 130 26 210 96 320 60 S 540 10 680 54'/>\
 </g></svg>");}
-.wrap{position:relative;z-index:1;max-width:1020px;margin:0 auto;padding:0 20px}
+.wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 20px}
 
-/* ── hero ─────────────────────────────────────────── */
-.hero{position:relative;margin:0 -20px;padding:0;
-  background:linear-gradient(180deg,var(--skyA),var(--skyB))}
-.hero .in{max-width:1020px;margin:0 auto;padding:44px 20px 0}
+/* ── head ─────────────────────────────────────────── */
+header{padding:40px 0 0}
 .kick{font:500 11px/1 var(--m);letter-spacing:.2em;text-transform:uppercase;
-  color:var(--accent);margin:0 0 14px}
-h1{font:700 clamp(2.2rem,6.6vw,3.7rem)/1 var(--s);margin:0;letter-spacing:-.03em;
-  max-width:16ch;text-wrap:balance}
-.strap{font-size:1.1rem;color:var(--ink2);margin:14px 0 26px;max-width:46ch}
-#ridge{display:block;width:100%;height:clamp(110px,20vw,190px)}
+  color:var(--accent);margin:0 0 13px}
+h1{font:700 clamp(2.1rem,6vw,3.3rem)/1.02 var(--s);margin:0;letter-spacing:-.03em;
+  max-width:17ch;text-wrap:balance}
+.strap{font-size:1.08rem;color:var(--ink2);margin:13px 0 0;max-width:48ch}
 
-/* ── findings: the hook ───────────────────────────── */
-.finds{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
-  gap:0;border-top:1px solid var(--rule);margin-top:-1px}
-.f{padding:20px 22px 22px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+/* ── findings ─────────────────────────────────────── */
+.finds{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:0;border-top:1px solid var(--rule);margin:32px 0 0}
+.f{padding:18px 20px 20px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .f:last-child{border-right:0}
-.f b{display:block;font:700 2.15rem/1 var(--m);letter-spacing:-.04em;color:var(--accent);
-  font-variant-numeric:tabular-nums;margin-bottom:8px}
-.f span{font-size:.94rem;color:var(--ink2);display:block;max-width:26ch}
+.f b{display:block;font:700 2rem/1 var(--m);letter-spacing:-.04em;color:var(--accent);
+  font-variant-numeric:tabular-nums;margin-bottom:7px}
+.f span{font-size:.92rem;color:var(--ink2);display:block;max-width:27ch}
 .f span i{font-style:normal;color:var(--ink);font-weight:600}
 
-/* ── picker ───────────────────────────────────────── */
-.ask{margin:52px 0 0}
-.ask h2{font:700 1.55rem/1.2 var(--s);margin:0 0 4px;letter-spacing:-.02em}
-.ask p{color:var(--ink2);margin:0 0 18px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{font:500 13px/1 var(--m);padding:11px 14px;border:1px solid var(--rule);
-  background:var(--panel);color:var(--ink);cursor:pointer;border-radius:2px}
-.chip:hover{border-color:var(--ink2)}
-.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* ── the working area: map + panel ────────────────── */
+.work{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:0;
+  border:1px solid var(--rule);margin:40px 0 0;background:var(--panel)}
+.mapbox{position:relative;min-height:440px}
+#map{display:block;width:100%;height:100%;position:absolute;inset:0}
+.legend{position:absolute;left:14px;bottom:12px;font:500 10px/1.7 var(--m);
+  letter-spacing:.06em;color:var(--ink2);text-transform:uppercase;pointer-events:none}
+.legend i{display:inline-block;width:8px;height:8px;margin-right:6px;vertical-align:-1px}
+.scalebar{position:absolute;right:14px;bottom:12px;font:500 9px/1 var(--m);
+  color:var(--ink2);letter-spacing:.1em;text-align:right;pointer-events:none}
+.scalebar hr{border:0;border-top:2px solid var(--ink2);margin:4px 0 0}
 
-/* ── result ───────────────────────────────────────── */
-.res{margin:34px 0 0}
-.rhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
-  border-bottom:2px solid var(--ink);padding-bottom:9px}
-.rhead h3{font:700 1.7rem/1.1 var(--s);margin:0;letter-spacing:-.02em}
-.rhead .of{font:500 12px/1 var(--m);color:var(--ink2);letter-spacing:.05em}
-.verdict{font-size:1.18rem;line-height:1.5;margin:20px 0 4px;max-width:50ch}
-.verdict b{color:var(--accent);font-weight:700;font-family:var(--m);font-size:1.05em}
-.verdict .g{color:var(--fix)}
-.verdict .bad{color:var(--accent)}
+.panel{border-left:1px solid var(--rule);padding:20px;display:flex;flex-direction:column}
+.panel h2{font:700 12px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;margin:0 0 4px}
+.panel .sub{font-size:.88rem;color:var(--ink2);margin:0 0 14px}
+select{font:500 13px/1 var(--m);padding:12px;border:1px solid var(--rule);width:100%;
+  background:var(--paper);color:var(--ink);border-radius:2px;cursor:pointer}
+select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
-.mini{display:flex;gap:26px;flex-wrap:wrap;margin:22px 0 0;
-  border-top:1px solid var(--rule);padding-top:16px}
-.mini div{font:400 12px/1.5 var(--m);color:var(--ink2)}
-.mini div b{display:block;font:700 1.5rem/1.1 var(--m);color:var(--ink);
-  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.verdict{font-size:1.06rem;line-height:1.5;margin:20px 0 0}
+.verdict b{font-family:var(--m);font-weight:700;color:var(--accent);font-size:1.04em}
+.verdict .g{color:var(--fix);font-weight:600}
+.verdict .bad{color:var(--accent);font-weight:600}
+.dial{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);
+  border:1px solid var(--rule);margin:18px 0 0}
+.dial div{background:var(--panel);padding:11px 12px}
+.dial b{display:block;font:700 1.35rem/1.1 var(--m);font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em}
+.dial span{font:400 10px/1.4 var(--m);color:var(--ink2);text-transform:uppercase;
+  letter-spacing:.06em}
+.hint{font-size:.87rem;color:var(--ink2);margin:16px 0 0;border-top:1px solid var(--rule);
+  padding-top:14px}
+.hint b{color:var(--ink)}
+.go{margin-top:auto;padding-top:16px}
+.go a{display:block;text-align:center;font:500 12px/1 var(--m);letter-spacing:.1em;
+  text-transform:uppercase;padding:14px;border:1px solid var(--ink);color:var(--ink);
+  text-decoration:none;border-radius:2px}
+.go a:hover{background:var(--ink);color:var(--paper)}
 
-h4{font:700 12px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;
-  margin:40px 0 4px}
-h4+p{color:var(--ink2);margin:0 0 14px;font-size:.95rem;max-width:54ch}
+/* ── the few named examples ───────────────────────── */
+h3{font:700 12px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;margin:44px 0 4px}
+h3+p{color:var(--ink2);margin:0 0 16px;font-size:.94rem;max-width:56ch}
+.ex{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+.ex>div{background:var(--paper);padding:14px 16px}
+.ex .nm{font:600 1rem/1.25 var(--s)}
+.ex .gr{font:400 10.5px/1.6 var(--m);color:var(--ink2);margin-top:2px}
+.ex .d{font:700 13px/1 var(--m);margin-top:9px}
+.ex .d.on{color:var(--fix)}
+.ex .ls{font:400 11px/1.55 var(--m);color:var(--ink2);margin-top:6px}
+.ex .ls b{color:var(--accent)}
 
-.j{display:grid;grid-template-columns:minmax(0,1fr) 108px minmax(0,1fr);
-  align-items:center;gap:0 14px;padding:13px 0;border-bottom:1px solid var(--rule2)}
-.j .nm{font:600 1rem/1.25 var(--s)}
-.j .sub{font:400 11px/1.5 var(--m);color:var(--ink2);margin-top:2px}
-.sp{text-align:center;position:relative}
-.sp:before{content:"";position:absolute;left:0;right:0;top:9px;border-top:1px dashed var(--rule)}
-.sp .d{font:700 13px/1 var(--m);background:var(--paper);padding:0 6px;position:relative}
-.sp .t{display:block;font:500 9px/1 var(--m);letter-spacing:.12em;color:var(--ink2);margin-top:6px}
-.on .d{color:var(--fix)} .on .t{color:var(--fix)}
-.pl{text-align:right;font:500 .92rem/1.3 var(--m)}
-.pl small{display:block;font:400 10px/1.5 var(--m);color:var(--ink2);letter-spacing:.1em}
-.also{grid-column:1/-1;font:400 11.5px/1.6 var(--m);color:var(--ink2);margin-top:7px}
-.also b{color:var(--accent)}
-
-.more{font:500 12px/1 var(--m);letter-spacing:.12em;text-transform:uppercase;padding:14px;
-  border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;
-  width:100%;margin-top:16px;border-radius:2px}
-.more:hover{background:var(--ink);color:var(--paper)}
-
-footer{border-top:2px solid var(--ink);margin-top:60px;padding:18px 0 60px;
+footer{border-top:2px solid var(--ink);margin-top:56px;padding:18px 0 56px;
   font:400 12.5px/1.7 var(--m);color:var(--ink2)}
 footer p{margin:0 0 12px;max-width:62ch}
 a{color:var(--accent)}
 
-@media(max-width:700px){
+@media(max-width:860px){
+  .work{grid-template-columns:1fr}
+  .mapbox{min-height:340px}
+  .panel{border-left:0;border-top:1px solid var(--rule)}
   .f{border-right:0}
-  .j{grid-template-columns:1fr;gap:2px;padding:15px 0}
-  .sp{text-align:left;margin:6px 0 2px}.sp:before{display:none}
-  .sp .d{padding:0;background:none}.sp .t{display:inline;margin-left:8px}
-  .pl{text-align:left}
-}
-@media(prefers-reduced-motion:no-preference){
-  #ridge path{transition:d .5s ease}
 }
 </style>
 </head>
 <body>
-
-<div class="hero">
- <div class="in">
-  <p class="kick">Ordnance Survey trig archive × Database of British &amp; Irish Hills</p>
-  <h1>Which of your hills has a pillar on top?</h1>
-  <p class="strap">The two datasets had never been joined. Pick your challenge and find out
-  what you're actually walking to.</p>
- </div>
- <svg id="ridge" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
-   <path id="r3" fill="var(--ridge1)" d=""></path>
-   <path id="r2" fill="var(--ridge2)" d=""></path>
-   <path id="r1" fill="var(--ridge3)" d=""></path>
- </svg>
-</div>
-
 <div class="wrap">
 
+<header>
+  <p class="kick">Ordnance Survey trig archive × Database of British &amp; Irish Hills</p>
+  <h1>Which of your hills has a pillar on top?</h1>
+  <p class="strap">The two datasets had never been joined. Pick a challenge and see where its
+  summits are — and which of them you can bag twice.</p>
+</header>
+
 <div class="finds">
-  <div class="f"><b id="fA">—</b><span>trig pillars stand <i>within ten metres</i> of a named
+  <div class="f"><b id="fA">—</b><span>pillars stand <i>within ten metres</i> of a named
     summit. Climb one, bag both.</span></div>
-  <div class="f"><b id="fB">—</b><span>of pillars are <i>more than 2 km</i> from any hill at
-    all. Trig bagging is its own pursuit.</span></div>
+  <div class="f"><b id="fB">—</b><span>of pillars are <i>over 2 km</i> from any hill. Trig
+    bagging is its own pursuit.</span></div>
   <div class="f"><b>4×</b><span>more <i>Ethels</i> carry a pillar than <i>Wainwrights</i> —
     38.9% against 9.8%.</span></div>
   <div class="f"><b>89 m</b><span>is how far <i>Helvellyn's</i> pillar stands from its summit.
-    They are two places.</span></div>
+    Two places.</span></div>
 </div>
 
-<section class="ask">
-  <h2>Which are you working on?</h2>
-  <p>Sixteen challenges, 27,657 summits and 6,081 standing pillars.</p>
-  <div class="chips" id="chips" role="group" aria-label="Challenge"></div>
-</section>
-
-<section class="res" id="res" hidden>
-  <div class="rhead"><h3 id="rName">—</h3><span class="of" id="rOf"></span></div>
-  <p class="verdict" id="verdict"></p>
-  <div class="mini" id="mini"></div>
-
-  <h4>Pillars on your summits</h4>
-  <p id="listNote"></p>
-  <div id="rows"></div>
-  <button class="more" id="more">Show more</button>
-
-  <div id="farWrap" hidden>
-    <h4>Don't be fooled</h4>
-    <p>On these, the pillar is <em>not</em> the summit — it stands between 50 and 250 metres
-    away. Touching it is not the same as topping out.</p>
-    <div id="far"></div>
+<div class="work">
+  <div class="mapbox">
+    <canvas id="map"></canvas>
+    <div class="legend">
+      <div><i style="background:var(--land)"></i>every hill</div>
+      <div><i id="lgA"></i><span id="lgAt">challenge</span></div>
+      <div><i style="background:var(--fix)"></i>has a pillar</div>
+    </div>
+    <div class="scalebar"><span id="scaleTxt">100 km</span><hr id="scaleBar"></div>
   </div>
-</section>
+  <div class="panel">
+    <h2>Your challenge</h2>
+    <p class="sub">39 lists, 21,576 summits, 6,081 standing pillars.</p>
+    <select id="pick" aria-label="Choose a challenge"></select>
+    <p class="verdict" id="verdict"></p>
+    <div class="dial" id="dial"></div>
+    <p class="hint" id="hint"></p>
+    <div class="go"><a id="tableLink" href="table.html">See every one →</a></div>
+  </div>
+</div>
+
+<h3>The ones worth planning around</h3>
+<p id="exNote">Summits on this list that carry a pillar <em>and</em> count toward the most other
+challenges. One walk, several ticks.</p>
+<div class="ex" id="ex"></div>
 
 <footer>
 <p>Hills: <a href="https://www.hill-bagging.co.uk/dobih">Database of British and Irish Hills</a>
 v18.6, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Pillars: Ordnance
 Survey Complete Trig Archive, <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open
 Government Licence</a>. Contains OS data &copy; Crown copyright and database right 2026.</p>
-<p>Separations are straight lines in OSGB grid metres between the pillar's recorded position
-and the recorded summit; both carry survey error. Destroyed pillars excluded — 1,030 of the
-7,111 on record. The skyline above is drawn from the real heights of the challenge you chose.</p>
+<p>The map is drawn from the hills themselves — no basemap, no tiles. Positions are WGS84;
+pillar eastings converted from OSGB36. Separations are straight-line metres between the
+pillar's recorded position and the recorded summit, both of which carry survey error.
+Destroyed pillars excluded — 1,030 of the 7,111 on record.</p>
 <p>Corrections welcome — some of the matching needed checking by hand.</p>
 </footer>
 </div>
 
 <script>
-const STEP=30; let D=null,cur=null,shown=STEP;
+let D=null,cur='W',P=null,HIT=null,ALL=null;
 const el=i=>document.getElementById(i), nf=n=>n.toLocaleString('en-GB');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const unpack=s=>{let p=0;return s.split(',').map(t=>p+=parseInt(t,16));};
 
 fetch('data.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{D=d;boot()});
 
 function boot(){
-  el('fA').textContent=nf(D.stats.coincident10);
-  el('fB').textContent=Math.round(100*D.stats.far2km/D.stats.pillars)+'%';
-  el('chips').innerHTML=D.order.map(c=>
-    `<button class="chip" data-c="${c}" aria-pressed="false">${D.ch[c].name}</button>`).join('');
-  el('chips').addEventListener('click',e=>{
-    const b=e.target.closest('.chip'); if(!b)return; pick(b.dataset.c);});
-  el('more').addEventListener('click',()=>{shown+=STEP;rows()});
-  pick('W');
+  el('fA').textContent=nf(D.stats.c10);
+  el('fB').textContent=Math.round(100*D.stats.far2/D.stats.pillars)+'%';
+  const flat=unpack(D.pts), g=D.grid;
+  ALL=[]; for(let i=0;i<flat.length;i+=2) ALL.push([flat[i]*g[0], flat[i+1]*g[1]]);
+  const groups={};
+  D.order.forEach(c=>{(groups[D.ch[c].grp]=groups[D.ch[c].grp]||[]).push(c)});
+  el('pick').innerHTML=Object.entries(groups).map(([g,cs])=>
+    `<optgroup label="${g}">`+cs.map(c=>
+      `<option value="${c}"${c==='W'?' selected':''}>${D.ch[c].n} — ${nf(D.ch[c].tot)}</option>`
+    ).join('')+`</optgroup>`).join('');
+  el('pick').addEventListener('change',e=>pick(e.target.value));
+  addEventListener('resize',()=>{sizeCanvas();paint()},{passive:true});
+  sizeCanvas(); pick('W');
 }
 
-/* highest in the middle: place alternately outward so it reads as a range */
-function profile(sky){
-  const s=[...sky].sort((a,b)=>b-a), out=[];
-  s.forEach((v,i)=> i%2 ? out.push(v) : out.unshift(v));
-  return out;
+/* equirectangular, longitude squeezed by cos(mean lat) */
+let PROJ=null;
+function project(w,h){
+  let a=90,b=-90,c=180,d=-180;
+  for(const[la,lo]of ALL){if(la<a)a=la;if(la>b)b=la;if(lo<c)c=lo;if(lo>d)d=lo;}
+  const k=Math.cos((a+b)/2*Math.PI/180);
+  const sw=(d-c)*k, sh=(b-a);
+  const s=Math.min((w-24)/sw,(h-24)/sh);
+  return {x:lo=>(lo-c)*k*s+(w-sw*s)/2, y:la=>h-((la-a)*s+(h-sh*s)/2), s:s, k:k};
 }
-function drawRidge(sky){
-  const p=profile(sky), max=Math.max(...p), min=Math.min(...p)*.30;
-  const pts=n=>{
-    const step=1200/(p.length-1||1);
-    let d=`M0 200 L0 ${y(p[0],n)}`;
-    for(let i=1;i<p.length;i++){
-      const x=i*step, py=y(p[i],n), px=x-step/2, pm=(y(p[i-1],n)+py)/2;
-      d+=` Q${px} ${pm} ${x} ${py}`;
-    }
-    return d+` L1200 200 Z`;
-  };
-  const y=(v,n)=>{
-    const t=Math.pow((v-min)/(max-min||1),.78);   // lift the mid-range
-    const base=200-(16+n*34);
-    return base-t*(96+n*14);
-  };
-  el('r1').setAttribute('d',pts(0));
-  el('r2').setAttribute('d',pts(1));
-  el('r3').setAttribute('d',pts(2));
+function sizeCanvas(){
+  const cv=el('map'),r=cv.parentElement.getBoundingClientRect(),dpr=devicePixelRatio||1;
+  cv.width=r.width*dpr; cv.height=r.height*dpr;
+  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0);
+  PROJ=project(r.width,r.height);
+  const km=PROJ.s*(1/110.574);       // deg lat per km → px per km
+  const bar=Math.round(100*km); el('scaleBar').style.width=bar+'px';
 }
-
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+function paint(){
+  const cv=el('map'),x=cv.getContext('2d'),r=cv.getBoundingClientRect();
+  x.clearRect(0,0,r.width,r.height);
+  const land=css('--land'),acc=css('--accent'),fix=css('--fix');
+  x.fillStyle=land;
+  for(const[la,lo]of ALL){x.fillRect(PROJ.x(lo),PROJ.y(la),1.4,1.4);}
+  x.fillStyle=acc;
+  for(const i of P){const[la,lo]=ALL[i];x.fillRect(PROJ.x(lo)-1.5,PROJ.y(la)-1.5,3.4,3.4);}
+  const hs=new Set(HIT);
+  x.fillStyle=fix; x.strokeStyle=css('--paper'); x.lineWidth=1.4;
+  for(const i of hs){const[la,lo]=ALL[i];
+    x.beginPath();x.arc(PROJ.x(lo),PROJ.y(la),4.2,0,7);x.fill();x.stroke();}
+}
 function pick(c){
-  cur=c; shown=STEP;
-  [...document.querySelectorAll('.chip')].forEach(b=>
-    b.setAttribute('aria-pressed', b.dataset.c===c));
-  const o=D.ch[c];
-  drawRidge(o.sky);
-  el('res').hidden=false;
-  el('rName').textContent=o.name;
-  el('rOf').textContent=`${nf(o.total)} SUMMITS · ${o.hi.toUpperCase()} ${Math.round(o.hiM)} M HIGHEST`;
-  const pctTxt=o.pct50>=30?'<span class="g">unusually well served</span>'
-             :o.pct50>=15?'about average':'<span class="bad">poorly served</span>';
-  el('verdict').innerHTML=
-    `<b>${o.with50}</b> of the ${nf(o.total)} ${o.name} carry a trig pillar within fifty metres
-     of the summit — ${o.pct50}%, which is ${pctTxt}. Of those,
-     <b>${o.with10}</b> stand right on the top.`;
-  el('mini').innerHTML=[
-    [o.with10,'on the summit (≤10 m)'],[o.with50,'within 50 m'],
-    [o.with250,'within 250 m'],[nf(o.total-o.with250),'with no pillar near']
-  ].map(([n,l])=>`<div><b>${n}</b>${l}</div>`).join('');
-  el('listNote').textContent=
-    `Ranked by how many other challenges the same summit counts toward. ${nf(o.rows.length)} shown.`;
-  el('farWrap').hidden=!o.far.length;
-  el('far').innerHTML=o.far.map(r=>row(r,true)).join('');
-  rows();
-  }
-
-function row(r,far){
-  const on=r.d<=10;
-  return `<div class="j${on?' on':''}">
-    <div><div class="nm">${esc(r.h)}</div>
-      <div class="sub">${esc(r.g||'')} · ${r.m??'?'} m · ${esc(r.r||'')}</div></div>
-    <div class="sp"><span class="d">${r.d} m</span>
-      <span class="t">${on?'ON TOP':far?'OFF THE TOP':'NEAR'}</span></div>
-    <div class="pl">${esc(r.t)}<small>PILLAR</small></div>
-    ${r.n>1?`<div class="also"><b>${r.n}</b> challenges &middot; ${r.l.map(c=>LN(c)).join(' · ')}</div>`:''}
-  </div>`;
-}
-const LNAMES={M:'Munros',MT:'Munro Tops',C:'Corbetts',FIONA:'Fionas',D:'Donalds',F:'Furths',
- Mur:'Murdos',Hew:'Hewitts',N:'Nuttalls',Dew:'Deweys',HF:'Highland Fives',W:'Wainwrights',
- WO:'Wainwright Outlying',B:'Birketts',Sy:'Synges',Fel:'Fellrangers',E:'Ethels',Ma:'Marilyns',
- Hu:'HuMPs',Sim:'Simms',HHB:'High Hills of Britain',CoU:'County Tops',SIB:'Significant Islands',
- T100:'Trail 100',A:'Arderins',VL:'Vandeleur-Lynams',Ca:'Carns',Bin:'Binnions',Dil:'Dillons'};
-const LN=c=>LNAMES[c]||c;
-
-function rows(){
-  const o=D.ch[cur];
-  el('rows').innerHTML=o.rows.slice(0,shown).map(r=>row(r,false)).join('')
-    ||`<p style="color:var(--ink2)">No pillars within 250 m of any summit on this list.</p>`;
-  const left=o.rows.length-shown;
-  el('more').hidden=left<=0;
-  el('more').textContent=`Show ${Math.min(STEP,left)} more`;
+  cur=c; const o=D.ch[c];
+  P=unpack(o.pts); HIT=o.hit?unpack(o.hit):[];
+  el('lgA').style.background=css('--accent');
+  el('lgAt').textContent=o.n.toLowerCase();
+  const band=o.pct>=30?'<span class="g">unusually well served</span>'
+            :o.pct>=15?'about average':'<span class="bad">poorly served</span>';
+  el('verdict').innerHTML=`<b>${nf(o.w50)}</b> of the ${nf(o.tot)} ${o.n} carry a pillar within
+    fifty metres of the summit — ${o.pct}%, ${band}.`;
+  el('dial').innerHTML=[[nf(o.w10),'on the top ≤10 m'],[nf(o.w50),'within 50 m'],
+    [nf(o.w250),'within 250 m'],[nf(o.tot-o.w250),'none near']]
+    .map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('');
+  el('hint').innerHTML=o.nfar
+    ? `<b>${o.nfar}</b> of them have a pillar that is <b>not</b> the summit — 50 to 250 m off.
+       Touching it is not topping out.`
+    : `Highest is <b>${esc(o.hi)}</b> at ${o.hiM} m.`;
+  el('tableLink').href='table.html#'+c;
+  el('ex').innerHTML=(o.top||[]).map(r=>`<div>
+     <div class="nm">${esc(r.h)}</div>
+     <div class="gr">${esc(r.g||'')} · ${r.m??'?'} m · ${esc(r.r||'')}</div>
+     <div class="d${r.d<=10?' on':''}">${r.d} m to ${esc(r.t)}</div>
+     <div class="ls"><b>${r.l.length}</b> ${r.l.map(k=>D.ln[k]||k).join(' · ')}</div></div>`).join('');
+  paint();
 }
 </script>
 </body>
