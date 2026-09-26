@@ -153,13 +153,13 @@ a{color:var(--accent)}
     <div class="legend">
       <div><i style="background:var(--land)"></i>every hill</div>
       <div><i id="lgA"></i><span id="lgAt">challenge</span></div>
-      <div><i style="background:var(--fix)"></i>has a pillar</div>
+      <div><i style="background:var(--fix)"></i><span id="lgHit">has a pillar</span></div>
     </div>
     <div class="scalebar"><span id="scaleTxt">100 km</span><hr id="scaleBar"></div>
   </div>
   <div class="panel">
     <h2>Your challenge</h2>
-    <p class="sub">39 lists, 21,576 summits, 6,081 standing pillars.</p>
+    <p class="sub" id="psub">—</p>
     <select id="pick" aria-label="Choose a challenge"></select>
     <p class="verdict" id="verdict"></p>
     <div class="dial" id="dial"></div>
@@ -168,7 +168,7 @@ a{color:var(--accent)}
   </div>
 </div>
 
-<h3>The ones worth planning around</h3>
+<h3 id="exH">The ones worth planning around</h3>
 <p id="exNote">Summits on this list that carry a pillar <em>and</em> count toward the most other
 challenges. One walk, several ticks.</p>
 <div class="ex" id="ex"></div>
@@ -205,28 +205,46 @@ function boot(){
     `<optgroup label="${g}">`+cs.map(c=>
       `<option value="${c}"${c==='W'?' selected':''}>${D.ch[c].n} — ${nf(D.ch[c].tot)}</option>`
     ).join('')+`</optgroup>`).join('');
+  el('psub').textContent=`${D.order.length} challenges · ${nf(D.stats.hills)} summits · `
+    +`${nf(D.stats.pillars)} standing pillars`;
   el('pick').addEventListener('change',e=>pick(e.target.value));
   addEventListener('resize',()=>{sizeCanvas();paint()},{passive:true});
   sizeCanvas(); pick('W');
 }
 
-/* equirectangular, longitude squeezed by cos(mean lat) */
+/* equirectangular, longitude squeezed by cos(mean lat).
+   Fits the selection when it is small enough to be worth zooming to. */
 let PROJ=null;
-function project(w,h){
+function extent(list){
   let a=90,b=-90,c=180,d=-180;
-  for(const[la,lo]of ALL){if(la<a)a=la;if(la>b)b=la;if(lo<c)c=lo;if(lo>d)d=lo;}
+  for(const i of list){const[la,lo]=Array.isArray(i)?i:ALL[i];
+    if(la<a)a=la;if(la>b)b=la;if(lo<c)c=lo;if(lo>d)d=lo;}
+  return [a,b,c,d];
+}
+function project(w,h,sel){
+  let [a,b,c,d]=extent(ALL);
+  if(sel&&sel.length){
+    const [a2,b2,c2,d2]=extent(sel);
+    // zoom only when the selection covers less than a third of the country
+    if((b2-a2)<(b-a)/3 && (d2-c2)<(d-c)/3){
+      const py=Math.max(0.18,(b2-a2)*0.35), px=Math.max(0.30,(d2-c2)*0.35);
+      a=a2-py;b=b2+py;c=c2-px;d=d2+px;
+    }
+  }
   const k=Math.cos((a+b)/2*Math.PI/180);
-  const sw=(d-c)*k, sh=(b-a);
+  const sw=(d-c)*k||1, sh=(b-a)||1;
   const s=Math.min((w-24)/sw,(h-24)/sh);
-  return {x:lo=>(lo-c)*k*s+(w-sw*s)/2, y:la=>h-((la-a)*s+(h-sh*s)/2), s:s, k:k};
+  return {x:lo=>(lo-c)*k*s+(w-sw*s)/2, y:la=>h-((la-a)*s+(h-sh*s)/2), s:s, zoom:sh<6};
 }
 function sizeCanvas(){
   const cv=el('map'),r=cv.parentElement.getBoundingClientRect(),dpr=devicePixelRatio||1;
   cv.width=r.width*dpr; cv.height=r.height*dpr;
   const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0);
-  PROJ=project(r.width,r.height);
-  const km=PROJ.s*(1/110.574);       // deg lat per km → px per km
-  const bar=Math.round(100*km); el('scaleBar').style.width=bar+'px';
+  PROJ=project(r.width,r.height,P);
+  const km=PROJ.s*(1/110.574);
+  let unit=100; while(unit*km>170) unit/=2; while(unit*km<55) unit*=2;
+  el('scaleBar').style.width=Math.round(unit*km)+'px';
+  el('scaleTxt').textContent=unit>=1?unit+' km':(unit*1000)+' m';
 }
 function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
 function paint(){
@@ -235,36 +253,55 @@ function paint(){
   const land=css('--land'),acc=css('--accent'),fix=css('--fix');
   x.fillStyle=land;
   for(const[la,lo]of ALL){x.fillRect(PROJ.x(lo),PROJ.y(la),1.4,1.4);}
+  const z=PROJ.zoom, rp=z?4.5:1.7, rh=z?7:4.2;
   x.fillStyle=acc;
-  for(const i of P){const[la,lo]=ALL[i];x.fillRect(PROJ.x(lo)-1.5,PROJ.y(la)-1.5,3.4,3.4);}
-  const hs=new Set(HIT);
-  x.fillStyle=fix; x.strokeStyle=css('--paper'); x.lineWidth=1.4;
-  for(const i of hs){const[la,lo]=ALL[i];
-    x.beginPath();x.arc(PROJ.x(lo),PROJ.y(la),4.2,0,7);x.fill();x.stroke();}
+  for(const i of P){const[la,lo]=ALL[i];
+    x.beginPath();x.arc(PROJ.x(lo),PROJ.y(la),rp,0,7);x.fill();}
+  x.fillStyle=fix; x.strokeStyle=css('--paper'); x.lineWidth=z?2:1.4;
+  for(const i of new Set(HIT)){const[la,lo]=ALL[i];
+    x.beginPath();x.arc(PROJ.x(lo),PROJ.y(la),rh,0,7);x.fill();x.stroke();}
 }
 function pick(c){
   cur=c; const o=D.ch[c];
   P=unpack(o.pts); HIT=o.hit?unpack(o.hit):[];
+  const isTrig=c.startsWith('TRIG');
   el('lgA').style.background=css('--accent');
-  el('lgAt').textContent=o.n.toLowerCase();
-  const band=o.pct>=30?'<span class="g">unusually well served</span>'
-            :o.pct>=15?'about average':'<span class="bad">poorly served</span>';
-  el('verdict').innerHTML=`<b>${nf(o.w50)}</b> of the ${nf(o.tot)} ${o.n} carry a pillar within
-    fifty metres of the summit — ${o.pct}%, ${band}.`;
-  el('dial').innerHTML=[[nf(o.w10),'on the top ≤10 m'],[nf(o.w50),'within 50 m'],
-    [nf(o.w250),'within 250 m'],[nf(o.tot-o.w250),'none near']]
-    .map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('');
-  el('hint').innerHTML=o.nfar
-    ? `<b>${o.nfar}</b> of them have a pillar that is <b>not</b> the summit — 50 to 250 m off.
-       Touching it is not topping out.`
-    : `Highest is <b>${esc(o.hi)}</b> at ${o.hiM} m.`;
+  el('lgAt').textContent=isTrig?'these pillars':o.n.toLowerCase();
+  el('lgHit').textContent=isTrig?'on a named hill':'has a pillar';
+  if(isTrig){
+    el('verdict').innerHTML=`<b>${nf(o.w50)}</b> of these ${nf(o.tot)} pillars stand within
+      fifty metres of a named hill — ${o.pct}%. The rest are field, fell-side and roadside
+      trigs with no summit attached.`;
+    el('dial').innerHTML=[[nf(o.w10),'on a summit ≤10 m'],[nf(o.w50),'within 50 m'],
+      [nf(o.w250),'within 250 m'],[nf(o.tot-o.w250),'no hill near']]
+      .map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('');
+    el('hint').innerHTML=o.w50
+      ? `Highest is <b>${esc(o.hi)}</b> at ${o.hiM} m. Bag those and you tick a hill list too.`
+      : `None of these sit on a named hill — a pure trig round.`;
+  } else {
+    const band=o.pct>=30?'<span class="g">unusually well served</span>'
+              :o.pct>=15?'about average':'<span class="bad">poorly served</span>';
+    el('verdict').innerHTML=`<b>${nf(o.w50)}</b> of the ${nf(o.tot)} ${o.n} carry a pillar within
+      fifty metres of the summit — ${o.pct}%, ${band}.`;
+    el('dial').innerHTML=[[nf(o.w10),'on the top ≤10 m'],[nf(o.w50),'within 50 m'],
+      [nf(o.w250),'within 250 m'],[nf(o.tot-o.w250),'none near']]
+      .map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('');
+    el('hint').innerHTML=o.nfar
+      ? `<b>${o.nfar}</b> of them have a pillar that is <b>not</b> the summit — 50 to 250 m off.
+         Touching it is not topping out.`
+      : `Highest is <b>${esc(o.hi)}</b> at ${o.hiM} m.`;
+  }
   el('tableLink').href='table.html#'+c;
+  el('exH').textContent=isTrig?'Pillars that are also summits':'The ones worth planning around';
+  el('exNote').innerHTML=isTrig
+    ? 'These pillars sit on a named hill, so bagging one ticks a hill list at the same time.'
+    : 'Summits on this list that carry a pillar <em>and</em> count toward the most other challenges. One walk, several ticks.';
   el('ex').innerHTML=(o.top||[]).map(r=>`<div>
      <div class="nm">${esc(r.h)}</div>
      <div class="gr">${esc(r.g||'')} · ${r.m??'?'} m · ${esc(r.r||'')}</div>
      <div class="d${r.d<=10?' on':''}">${r.d} m to ${esc(r.t)}</div>
      <div class="ls"><b>${r.l.length}</b> ${r.l.map(k=>D.ln[k]||k).join(' · ')}</div></div>`).join('');
-  paint();
+  sizeCanvas(); paint();
 }
 </script>
 </body>

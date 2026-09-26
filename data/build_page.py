@@ -1,5 +1,5 @@
 import csv,json,gzip,math
-from collections import defaultdict
+from collections import defaultdict,Counter
 from osgb import en_to_wgs84
 
 LN={'M':'Munros','MT':'Munro Tops','C':'Corbetts','CT':'Corbett Tops','GT':'Graham Tops',
@@ -77,8 +77,43 @@ for code,name in LN.items():
       '_rows':rows[:600],
       '_far':sorted([row(h,tp) for h,tp in withp if 50<tp[0]<=250],key=lambda r:r['d'])[:14]}
 
+# ---- trig pillars are bagged BY COUNTY, not as one national list ----
+import re as _re
+def _clean(x):
+    if not x: return ''
+    x=_re.sub(r'\[[^\]]*\]','',x).strip()
+    return x.split(',')[0].strip()
+_cty=json.load(open('trig_county.json'))
+_ctry={}
+for t in trigs:
+    t['cty']=_clean(_cty.get(t['id'],''))
+    h=byid.get(t.get('nearest_hill') or '')
+    if h: _ctry.setdefault(t['cty'],Counter())[h['country']]+=1
+CN={'S':'Scotland','E':'England','W':'Wales','I':'Ireland','M':'Isle of Man','C':'Channel Is'}
+bycty=defaultdict(list)
+for t in trigs:
+    if t['cty']: bycty[t['cty']].append(t)
+for name,ts in sorted(bycty.items()):
+    if len(ts)<10: continue
+    on=[t for t in ts if (t.get('nearest_m') or 9e9)<=50]
+    dom=_ctry.get(name)
+    grp='Trig points — '+CN.get(dom.most_common(1)[0][0],'Britain') if dom else 'Trig points'
+    ch['TRIG_'+_re.sub(r'[^A-Za-z]','',name)[:16]]={
+      'n':name+' trigs','grp':grp,'tot':len(ts),
+      'w10':sum(1 for t in ts if (t.get('nearest_m') or 9e9)<=10),'w50':len(on),
+      'w250':sum(1 for t in ts if (t.get('nearest_m') or 9e9)<=250),
+      'pct':round(100*len(on)/len(ts),1),
+      'hi':(max(on,key=lambda t:byid[t['nearest_hill']]['m'] or 0)['name'] if on else '—'),
+      'hiM':(round(max((byid[t['nearest_hill']]['m'] or 0) for t in on)) if on else 0),
+      'pts':sorted(t['_i'] for t in ts),'hit':sorted(t['_i'] for t in on),
+      '_rows':sorted([{'h':byid[t['nearest_hill']]['name'],'g':byid[t['nearest_hill']].get('gr',''),
+         'm':byid[t['nearest_hill']]['m'],'r':byid[t['nearest_hill']]['region'],
+         'd':round(t['nearest_m'],1),'t':t['name'] or '(unnamed)',
+         'l':sorted([c for c in byid[t['nearest_hill']]['lists'] if c in LN],key=lambda c:LN[c])}
+         for t in on],key=lambda r:(-len(r['l']),r['d']))[:400],'_far':[]}
+
 onhill=[t for t in trigs if (t.get('nearest_m') or 9e9)<=50]
-ch['TRIG']={'n':'Trig Pillars','grp':'Trig points','tot':len(trigs),
+ch['TRIG']={'n':'All trig pillars (UK)','grp':'Trig points','tot':len(trigs),
   'w10':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)<=10),'w50':len(onhill),
   'w250':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)<=250),
   'pct':round(100*len(onhill)/len(trigs),1),'hi':'Ben Nevis','hiM':1345,
@@ -101,7 +136,7 @@ doc={'gen':'2026-09-26','grid':[0.006,0.010],
      'stats':{'hills':len(hills),'pillars':len(trigs),
        'c10':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)<=10),
        'far2':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)>2000)},
-     'ln':LN,'order':sorted(ch,key=lambda c:-ch[c]['tot']),'ch':ch}
+     'ln':LN,'order':sorted([c for c in ch if not c.startswith('TRIG')],key=lambda c:-ch[c]['tot'])+['TRIG']+sorted([c for c in ch if c.startswith('TRIG_')],key=lambda c:ch[c]['n']),'ch':ch}
 json.dump(doc,open('../site/data.json','w'),separators=(',',':'))
 for f in ['../site/data.json','../site/rows.json']:
     b=open(f,'rb').read()
