@@ -26,7 +26,7 @@ for t in trigs:
     ls=[l for l in h['lists'] if l in LISTNAME]
     bag=[l for l in ls if l in BAGGED]
     pairs.append({'t':t['name'] or '(unnamed)','h':h['name'],'d':round(d,1),
-                  'm':h['m'],'c':h['country'],'r':h['region'],
+                  'm':h['m'],'c':h['country'],'r':h['region'],'g':h.get('gr',''),
                   'l':sorted(bag,key=lambda x:LISTNAME[x]),'n':len(bag)})
 pairs.sort(key=lambda p:(-p['n'],p['d']))
 
