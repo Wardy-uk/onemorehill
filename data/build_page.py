@@ -1,58 +1,64 @@
-import csv,json,math
+import csv, json, math, gzip
 from collections import defaultdict
 
-LISTNAME={'M':'Munro','MT':'Munro Top','C':'Corbett','G':'Graham','FIONA':'Fiona','D':'Donald',
- 'DT':'Donald Top','F':'Furth','Mur':'Murdo','CT':'Corbett Top','GT':'Graham Top','DDew':'Donald Dewey',
- 'Hew':'Hewitt','N':'Nuttall','Dew':'Dewey','HF':'Highland Five','W':'Wainwright',
- 'WO':'Wainwright Outlying','B':'Birkett','Sy':'Synge','Fel':'Fellranger','E':'Ethel',
- 'Tu':'TuMP','Hu':'HuMP','Sim':'Simm','Ma':'Marilyn','HHB':'High Hill of Britain','Y':'Yeaman',
- 'CoU':'County Top','CoH':'Historic County Top','CoA':'Admin County Top','CoL':'London Borough Top',
- 'SIB':'Significant Island','T100':'Trail 100','A':'Arderin','VL':'Vandeleur-Lynam','Ca':'Carn',
- 'Bin':'Binnion','Dil':'Dillon'}
-# lists people actually bag - used for the "jackpot" score
-BAGGED={'M','MT','C','FIONA','D','F','Hew','N','Dew','W','WO','B','Sy','Fel','E','Ma','Hu','Sim','HHB','CoU','SIB','T100','Mur','HF'}
+LISTNAME={'M':'Munros','MT':'Munro Tops','C':'Corbetts','FIONA':'Fionas','D':'Donalds',
+ 'F':'Furths','Mur':'Murdos','Hew':'Hewitts','N':'Nuttalls','Dew':'Deweys','HF':'Highland Fives',
+ 'W':'Wainwrights','WO':'Wainwright Outlying Fells','B':'Birketts','Sy':'Synges',
+ 'Fel':'Fellrangers','E':'Ethels','Ma':'Marilyns','Hu':'HuMPs','Sim':'Simms',
+ 'HHB':'High Hills of Britain','CoU':'County Tops','SIB':'Significant Islands','T100':'Trail 100',
+ 'A':'Arderins','VL':'Vandeleur-Lynams','Ca':'Carns','Bin':'Binnions','Dil':'Dillons'}
+# challenges offered in the picker — ones people actually work on
+PICK=['W','E','M','C','FIONA','Ma','Hew','N','D','CoU','Hu','B','WO','T100','A','Sim']
 
 hills=json.load(open('locations_hills.json'))
 trigs=json.load(open('locations_trigs.json'))
 byid={h['id']:h for h in hills}
 
-pairs=[]
+# pillar → nearest hill, within 250m
+near=defaultdict(list)
 for t in trigs:
-    if not t.get('nearest_hill'): continue
-    d=t.get('nearest_m')
-    if d is None or d>250: continue
-    h=byid.get(t['nearest_hill'])
-    if not h: continue
-    ls=[l for l in h['lists'] if l in LISTNAME]
-    bag=[l for l in ls if l in BAGGED]
-    pairs.append({'t':t['name'] or '(unnamed)','h':h['name'],'d':round(d,1),
-                  'm':h['m'],'c':h['country'],'r':h['region'],'g':h.get('gr',''),
-                  'l':sorted(bag,key=lambda x:LISTNAME[x]),'n':len(bag)})
-pairs.sort(key=lambda p:(-p['n'],p['d']))
+    d=t.get('nearest_m'); hid=t.get('nearest_hill')
+    if d is None or hid is None or d>250: continue
+    near[hid].append((d, t['name'] or '(unnamed)'))
+for k in near: near[k].sort()
 
-cov={}
-for code in ['E','C','Ma','FIONA','CoU','D','N','M','Hew','W','WO','Hu','Sim','B']:
-    tot=sum(1 for h in hills if code in h['lists'])
-    if not tot: continue
-    got=len({t['nearest_hill'] for t in trigs
-             if t.get('nearest_m') is not None and t['nearest_m']<=50
-             and t.get('nearest_hill') and code in byid.get(t['nearest_hill'],{}).get('lists',[])})
-    cov[LISTNAME[code]]={'with':got,'total':tot,'pct':round(100*got/tot,1)}
+out={}
+for code in PICK:
+    mem=[h for h in hills if code in h['lists']]
+    if not mem: continue
+    mem.sort(key=lambda h:-(h['m'] or 0))
+    withp=[(h,near[h['id']][0]) for h in mem if h['id'] in near]
+    w50=[x for x in withp if x[1][0]<=50]
+    w10=[x for x in withp if x[1][0]<=10]
+    # skyline: up to 140 heights, evenly sampled across the list sorted by height
+    hs=[h['m'] for h in mem if h['m']]
+    step=max(1, len(hs)//140)
+    sky=[round(x) for x in hs[::step]][:140]
+    # the ones worth naming
+    def row(h,tp):
+        return {'h':h['name'],'g':h.get('gr',''),'m':h['m'],'r':h['region'],
+                'd':round(tp[0],1),'t':tp[1],
+                'l':sorted([c for c in h['lists'] if c in LISTNAME],key=lambda c:LISTNAME[c]),
+                'n':len([c for c in h['lists'] if c in LISTNAME])}
+    rows=[row(h,tp) for h,tp in withp]
+    rows.sort(key=lambda r:(-r['n'], r['d']))
+    # pillars that are NOT on the summit — the misleading ones
+    far=sorted([row(h,tp) for h,tp in withp if 50<tp[0]<=250], key=lambda r:r['d'])
+    out[code]={'name':LISTNAME[code],'total':len(mem),
+               'with50':len(w50),'with10':len(w10),'with250':len(withp),
+               'pct50':round(100*len(w50)/len(mem),1),
+               'hi':mem[0]['name'],'hiM':mem[0]['m'],
+               'lo':mem[-1]['name'],'loM':mem[-1]['m'],
+               'sky':sky,'rows':rows[:400],'far':far[:12]}
 
-coincident=sum(1 for t in trigs if t.get('nearest_m') is not None and t['nearest_m']<=10)
-far=sum(1 for t in trigs if t.get('nearest_m') is None or t['nearest_m']>2000)
-
-out={'generated':'2026-09-24','dobih':'v18.6',
-     'stats':{'hills':len(hills),'pillars':len(trigs),'coincident10':coincident,
-              'within50':sum(1 for t in trigs if t.get('nearest_m') is not None and t['nearest_m']<=50),
-              'far2km':far},
-     'listnames':LISTNAME,'coverage':cov,'pairs':pairs[:3000]}
-json.dump(out,open('../site/data.json','w'),separators=(',',':'))
-import os,gzip
+stats={'hills':len(hills),'pillars':len(trigs),
+       'coincident10':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)<=10),
+       'within50':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)<=50),
+       'far2km':sum(1 for t in trigs if (t.get('nearest_m') or 9e9)>2000)}
+doc={'generated':'2026-09-26','dobih':'v18.6','stats':stats,
+     'order':[c for c in PICK if c in out],'ch':out}
+json.dump(doc,open('../site/data.json','w'),separators=(',',':'))
 b=open('../site/data.json','rb').read()
-print(f"pairs: {len(pairs)}  (writing top 3000)")
-print(f"data.json: {len(b)/1024:.0f} KB raw, {len(gzip.compress(b,9))/1024:.0f} KB gzipped")
-print(f"coincident<=10m: {coincident}   within 50m: {out['stats']['within50']}   >2km: {far}")
-print("\ntop jackpots:")
-for p in pairs[:6]:
-    print(f"  {p['n']} lists  {p['d']:>5}m  {p['h'][:34]:36} {','.join(LISTNAME[x] for x in p['l'][:5])}")
+print(f"challenges: {len(out)}   raw {len(b)/1024:.0f} KB   gzip {len(gzip.compress(b,9))/1024:.0f} KB")
+for c in doc['order'][:6]:
+    o=out[c]; print(f"  {o['name']:26} {o['with50']:>4}/{o['total']:<6} {o['pct50']:>5}%  sky {len(o['sky'])}  far {len(o['far'])}")
