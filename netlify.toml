@@ -1,0 +1,15 @@
+# Static site — no build step, so this consumes no build minutes.
+[build]
+  publish = "site"
+  command = ""
+
+[[headers]]
+  for = "/data.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
